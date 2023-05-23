@@ -1,6 +1,6 @@
 # Senac UC4 Conteúdo:
 
-1 - Recuperação de dados: backup, restore, planos para desastres.
+*1 - Recuperação de dados: backup, restore, planos para desastres.
 2 - Segurança do banco de dados: usuários e permissões de acesso (GRANT e REVOKE, roles), encriptação de dados, SQL injection; integridade de dados.
 3 - Programação com SQL: triggers, stored procedures e stored functions.
 4 - Transações e locks.
@@ -22,4 +22,3 @@ As atividades desta UC avaliaram o aluno nos indicadores:
 * Aplica índices em tabelas de banco de dados, de acordo com ferramentas de banco de dados e parâmetros de desempenho definidos para o software.
 * Realiza normalização de banco de dados de acordo com requisitos do sistema.
 * Analisa, sob supervisão, alternativas a banco de dados relacionais de acordo com requisitos do sistema.
-Segurança do banco de dados: usuários e permissões de acesso (GRANT e REVOKE, roles), encriptação de dados, SQL injection; integridade de dados.
