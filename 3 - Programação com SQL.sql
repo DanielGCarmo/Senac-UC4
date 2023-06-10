@@ -69,8 +69,8 @@ DELIMITER //
 CREATE PROCEDURE buscar_nome_vendedor ()
 BEGIN
     DECLARE variavel_nome VARCHAR(25);
-    SELECT nome INTO variavel_nome FROM vendedores WHERE id = 1;	-- Com o comando INTO, é possível direcionar o valor de uma das colunas informadas no comando SELECT para uma variável local declarada.
-    SELECT variavel_nome; 											-- Nesse exemplo, declara-se a variável "variavel_nome", do tipo VARCHAR(25), direcionando o resultado da coluna "nome" para dentro da variável.
+    SELECT nome INTO variavel_nome FROM vendedores WHERE id = 1;  -- Com o comando INTO, é possível direcionar o valor de uma das colunas informadas no comando SELECT para uma variável local declarada.
+    SELECT variavel_nome;  -- Nesse exemplo, declara-se a variável "variavel_nome", do tipo VARCHAR(25), direcionando o resultado da coluna "nome" para dentro da variável.
 END//
 DELIMITER ;
 
