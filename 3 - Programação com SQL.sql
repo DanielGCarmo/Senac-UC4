@@ -51,6 +51,7 @@ VALUES (1, 12, 4, false);
 -- -----------------------------------------------------
 -- Declarando variáveis
 -- -----------------------------------------------------
+
 DELIMITER $$
 CREATE PROCEDURE buscar_resultado_prova ()
 BEGIN
@@ -65,12 +66,13 @@ DELIMITER ;
 -- -----------------------------------------------------
 -- Atribuindo novos valores a uma variável
 -- -----------------------------------------------------
+
 DELIMITER //
 CREATE PROCEDURE buscar_nome_vendedor ()
 BEGIN
     DECLARE variavel_nome VARCHAR(25);
-    SELECT nome INTO variavel_nome FROM vendedores WHERE id = 1;  -- Com o comando INTO, é possível direcionar o valor de uma das colunas informadas no comando SELECT para uma variável local declarada.
-    SELECT variavel_nome;  -- Nesse exemplo, declara-se a variável "variavel_nome", do tipo VARCHAR(25), direcionando o resultado da coluna "nome" para dentro da variável.
+    SELECT nome INTO variavel_nome FROM vendedores WHERE id = 1;	-- Com o comando INTO, é possível direcionar o valor de uma das colunas informadas no comando SELECT para uma variável local declarada.
+    SELECT variavel_nome; 											-- Nesse exemplo, declara-se a variável "variavel_nome", do tipo VARCHAR(25), direcionando o resultado da coluna "nome" para dentro da variável.
 END//
 DELIMITER ;
 
@@ -87,3 +89,77 @@ DELIMITER ;
 -- -----------------------------------------------------
 -- Armazenando múltiplas colunas – Comando INTO
 -- -----------------------------------------------------
+
+DELIMITER //
+CREATE PROCEDURE buscar_dados_vendedor ()
+BEGIN
+    DECLARE v_nome VARCHAR(25);
+    DECLARE v_email VARCHAR(255);
+    SELECT nome, email INTO v_nome, v_email 
+        FROM vendedores WHERE id = 1;
+    SELECT v_nome, v_email;
+END//
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Declarando variáveis de usuário
+-- -----------------------------------------------------
+
+SET @ola = "Olá mundo";
+SELECT @ola;
+
+SELECT @variavelInexistente;
+
+-- -----------------------------------------------------
+-- Atribuindo novos valores a variáveis de usuário
+-- -----------------------------------------------------
+
+SET @ola = "Hello world";
+SELECT @ola;
+
+-- Também se pode armazenar resultados de consultas em variáveis de usuário
+SELECT id, nome INTO @v_id, @v_nome 
+FROM vendedores 
+WHERE id = 1;
+
+-- Armazene o valor de uma consulta por meio do comando SET:
+SET @v_nome := (SELECT nome FROM vendedores WHERE id = 1);  
+
+-- -----------------------------------------------------
+-- Condicional
+-- -----------------------------------------------------
+
+-- IF statement
+
+DELIMITER $$
+CREATE PROCEDURE buscar_terrenos (id_vendedor INT)
+BEGIN
+    DECLARE id_encontrado INT;
+    SELECT id INTO id_encontrado FROM vendedores 
+        WHERE id = id_vendedor;
+    IF id_encontrado IS NULL THEN -- IF = "se" / THEN = "então"
+        SELECT "Sem acesso";
+    ELSE -- ELSE = "senão"
+        SELECT * FROM terrenos;
+    END IF; -- END IF = "fim se"
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE buscar_comissao (id_vendedor INT)
+BEGIN
+    DECLARE comissao DECIMAL(2,1) DEFAULT 1.0;
+    DECLARE nome_vendedor VARCHAR(25);
+    SELECT nome INTO nome_vendedor
+        FROM vendedores
+        WHERE id = id_vendedor;
+        IF nome_vendedor = "Fulano" THEN
+        SET comissao := 1.3;
+    ELSEIF nome_vendedor = "Ciclano" THEN -- ELSEIF = "senão" e "se", respectivamente.
+        SET comissao := 1.2;
+    ELSE
+        SET comissao := 1.1;
+    END IF; -- 
+    SELECT comissao;
+END$$
+DELIMITER ;
